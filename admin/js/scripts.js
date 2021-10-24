@@ -21,3 +21,16 @@ $(document).ready(function () {
       $(this).remove();
     });
 });
+
+// function for loading users online using jquery and ajax
+
+function loadUsersOnline() {
+  $.get("functions.php?onlineusers=result", function (data) {
+    $(".usersonline").text(data);
+  });
+}
+
+// execute this function every second
+setInterval(function () {
+  loadUsersOnline();
+}, 500);

@@ -1,28 +1,42 @@
 <?php
     
 function users_online(){
-    global $conn;
-    // inbuilt function which will catch id
-    $session = session_id();
-    $time = time();
-    $time_out_in_seconds = 60;
-    $time_out = $time - $time_out_in_seconds;
 
-    $query = "SELECT * FROM users_online WHERE session = '$session' ";
-    $send_query = mysqli_query($conn, $query);
-    $count = mysqli_num_rows($send_query);
+    if(isset($_GET['onlineusers'])){
 
-    // if user is new then insert 
-    if($count == NULL){
-        mysqli_query($conn, "INSERT INTO users_online(session, time) VALUES('$session','$time')");
-    }else{
-        // if user is already have data
-        mysqli_query($conn, "UPDATE users_online SET time = '$time' WHERE session = '$session'");
+        global $conn;
 
-    }
-    $users_online_query = mysqli_query($conn, "SELECT * FROM users_online WHERE time > '$time_out'");
-    return $count_user = mysqli_num_rows($users_online_query);
+        if(!$conn){
+            session_start();
+            include("../includes/db.php");
+             // inbuilt function which will catch id
+            $session = session_id();
+            $time = time();
+            $time_out_in_seconds = 05;
+            $time_out = $time - $time_out_in_seconds;
+
+            $query = "SELECT * FROM users_online WHERE session = '$session' ";
+            $send_query = mysqli_query($conn, $query);
+            $count = mysqli_num_rows($send_query);
+
+            // if user is new then insert 
+            if($count == NULL){
+                mysqli_query($conn, "INSERT INTO users_online(session, time) VALUES('$session','$time')");
+            }else{
+                // if user is already have data
+                mysqli_query($conn, "UPDATE users_online SET time = '$time' WHERE session = '$session'");
+
+            }
+            $users_online_query = mysqli_query($conn, "SELECT * FROM users_online WHERE time > '$time_out'");
+            echo $count_user = mysqli_num_rows($users_online_query);
+
+        }
+
+       
+
+} //get request isset()
 }
+users_online();
 
 function confirmQuery($result){
     global $conn;
