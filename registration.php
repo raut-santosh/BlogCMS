@@ -16,19 +16,21 @@
             $email  = mysqli_real_escape_string($conn, $email);
             $password = mysqli_real_escape_string($conn, $password);
 
-            $query = "SELECT randSalt FROM users";
-            $select_randsalt_query = mysqli_query($conn,$query);
+            $password = password_hash($password, PASSWORD_BCRYPT, array('cost' => 12));
 
-            if(!$select_randsalt_query){
-                die("Query Failed". mysqli_error($conn));
-            }
+            // $query = "SELECT randSalt FROM users";
+            // $select_randsalt_query = mysqli_query($conn,$query);
+
+            // if(!$select_randsalt_query){
+            //     die("Query Failed". mysqli_error($conn));
+            // }
 
             // It is like looping with while loop but this is new method to store that array in variable
-            $row = mysqli_fetch_array($select_randsalt_query);
-            $salt = $row['randSalt'];
+            // $row = mysqli_fetch_array($select_randsalt_query);
+            // $salt = $row['randSalt'];
 
-            // Encrypting password 
-            $password = crypt($password, $salt);
+            // // Encrypting password 
+            // $password = crypt($password, $salt);
             
 
 
