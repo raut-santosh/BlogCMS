@@ -37,9 +37,9 @@ if (isset($_POST['edit_user'])) {
     $user_email = $_POST['user_email'];
     $user_password = $_POST['user_password'];
 
-    // php built in function, 
-    // This will store that file in images folder.
-    // move_uploaded_file($post_image_temp, "../images/$post_image");
+    $user_password = password_hash($user_password, PASSWORD_BCRYPT, array('cost' => 12));
+
+
 
     $query = "UPDATE users SET ";
     $query .= "username = '{$username}', ";
@@ -128,7 +128,7 @@ if (isset($_POST['edit_user'])) {
 
     <div class="form-group">
         <label for="post_content">Password</label>
-        <input type="password" value="<?php echo $user_password;?>" class="form-control" name="user_password">
+        <input type="password" autocomplete="off" class="form-control" name="user_password">
     </div>
 
     <div class="form-group">
