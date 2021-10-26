@@ -16,6 +16,7 @@
             $email  = mysqli_real_escape_string($conn, $email);
             $password = mysqli_real_escape_string($conn, $password);
 
+            // Encrypting password with new system
             $password = password_hash($password, PASSWORD_BCRYPT, array('cost' => 12));
 
             // $query = "SELECT randSalt FROM users";

@@ -14,6 +14,12 @@ if (isset($_POST['create_user'])) {
     $user_email = $_POST['user_email'];
     $user_password = $_POST['user_password'];
 
+    // Encrypting password
+    $user_password = password_hash($user_password, PASSWORD_BCRYPT, array('cost' => 10));
+
+
+
+
     // php built in function, 
     // This will store that file in images folder.
     // move_uploaded_file($post_image_temp, "../images/$post_image");
